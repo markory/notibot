@@ -2,9 +2,7 @@ package de.markory.notibot.facade.config;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.annotation.Target;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.Properties;
 import java.util.Set;
 
@@ -42,14 +40,13 @@ public class PropertyLoader {
 	 * 
 	 */
 	private static void initProps(Properties properties, Class<?> targetClass) {
-		
+
 		Set<Object> propertiesSet = properties.keySet();
-		
+
 		for (Object propObj: propertiesSet) {
 
 			setField(targetClass, (String)propObj, properties.getProperty((String)propObj));
 		}
-		
 	}
 	
 	
@@ -79,8 +76,20 @@ public class PropertyLoader {
 			*/
 			
 			//change value of final field
-			targetField.set(targetField.getType(), value);
 			
+			if ( targetField.getType() ==  boolean.class ) {
+				targetField.setBoolean(null, new Boolean(value).booleanValue());
+			}
+			else if( targetField.getType() == int.class ) {
+				targetField.setInt(null, new Integer(value).intValue());
+			}
+			else if( targetField.getType() == double.class ) {
+				targetField.setDouble(null, new Double(value).intValue());
+			}
+			else{				
+				targetField.set(null, value);
+			}
+		
 		} catch (NoSuchFieldException | SecurityException e) {
 			throw new RuntimeException("de.markory.notibot.facade.config.PropertyLoader.setField(Class<?>, String, Class<?>) -"
 					+ "Can't set Field: "+name+".", e);
