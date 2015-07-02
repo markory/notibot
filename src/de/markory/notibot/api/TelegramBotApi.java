@@ -1,4 +1,4 @@
-package de.markory.notibot.api.bot;
+package de.markory.notibot.api;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +10,6 @@ import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.URL;
 
-import de.markory.notibot.api.bot.request.supers.Methode;
 import de.markory.notibot.util.PropertyLoader;
 
 /**
@@ -28,16 +27,24 @@ public class TelegramBotApi {
 	private final static String protocol = "https";
 	private final static String domain_api = "api.telegram.org";
 	
+	private static TelegramBotApi instance = null;
+	
 	static {
 		PropertyLoader.load(TelegramBotApi.class);
 	}
 
 	final String type = "application/x-www-form-urlencoded";
 	
-	public TelegramBotApi() {	}
+	private TelegramBotApi() {	}
 	
+	public static synchronized TelegramBotApi getInstance() {
+		
+		if ( instance == null ) return (instance = new TelegramBotApi());
+		
+		return instance;
+	}
 	
-	public String sendRequest( Methode<?> methode) throws IOException {
+	String sendRequest( TelegramMethode<?,?> methode) throws IOException {
 		
 		final URL url = new URL(protocol,domain_api, "/"+prop_bot_token+methode.getEndpoint());
 		
@@ -75,6 +82,8 @@ public class TelegramBotApi {
 			  response += line;
 			}
 			
+			
+			
 		} catch (MalformedURLException e) {
 			
 			e.printStackTrace();
@@ -83,7 +92,7 @@ public class TelegramBotApi {
 			if ( writer != null ) { writer.close(); }
 			if ( reader != null ) { reader.close(); }
 		}
-		
+			
 		return response;
 	}
 	

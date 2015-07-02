@@ -1,24 +1,32 @@
-package de.markory.notibot.api.bot.request.supers;
+package de.markory.notibot.api;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.EnumMap;
 
 
-public abstract class Methode<E extends Enum<E> & BaseParameter> {
+public abstract class TelegramMethode<E extends Enum<E> & RequestParam, T extends MethodeResponse> {
 	
-	String endpoint;
+	private final TelegramBotApi telegramBotApi = TelegramBotApi.getInstance();
+	
+	protected EnumMap<E, String> parameters;
 
-	EnumMap<E, String> parameters;
-
-	public Methode(Class<E> parameterType,String endpoint) {
+	protected String endpoint;
+	
+	private T methodeResponse;
+	
+	protected TelegramMethode(Class<E> parameterType,String endpoint,T methodeResponse) {
+		this.parameters = new EnumMap<E, String>(parameterType);
 		this.endpoint = endpoint;
-		parameters = new EnumMap<E, String>(parameterType);
+		this.methodeResponse = methodeResponse;
 	}
+	
 	
 	public String getEndpoint() {
 		return "/"+endpoint;
 	}
+	
 	
 	/** Get parameters application/x-www-form-urlencoded */
 	public String getParameters() {
@@ -52,5 +60,14 @@ public abstract class Methode<E extends Enum<E> & BaseParameter> {
 	public void setParameter(E key, String value) {
 		parameters.put(key, value);
 	}
+
+	public T sendRequest() throws IOException {
+		String response = telegramBotApi.sendRequest(this);
+		methodeResponse.setRawResponse(response);
+		return methodeResponse;
+	}
 	
+	public T getResponse() {
+		return methodeResponse;
+	}
 }

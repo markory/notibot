@@ -59,7 +59,6 @@ public class PropertyLoader {
 		boolean changedAccessible = false;
 		
 		Field targetField = null;
-		Field modifiersField = null;
 		
 		try {
 			targetField = targetClass.getDeclaredField(name);
@@ -68,15 +67,6 @@ public class PropertyLoader {
 				targetField.setAccessible(true);
 				changedAccessible = true;
 			}
-			
-			//make final field accessible
-			/*
-			modifiersField = Field.class.getDeclaredField( "modifiers" );
-			modifiersField.setAccessible( true );
-			modifiersField.set(targetField, targetField.getModifiers() & ~Modifier.FINAL );
-			*/
-			
-			//change value of final field
 			
 			if ( targetField.getType() ==  boolean.class ) {
 				targetField.setBoolean(null, new Boolean(value).booleanValue());
@@ -103,10 +93,6 @@ public class PropertyLoader {
 			
 			if(changedAccessible && targetField != null) {
 				targetField.setAccessible(false);
-			}
-			
-			if(modifiersField != null ) {
-				modifiersField.setAccessible( false );
 			}
 		}
 	}
