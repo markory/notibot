@@ -1,10 +1,12 @@
 package de.markory.notibot.api;
 
-public abstract class MethodeResponse {
+public abstract class TelegramBotApiResponse {
 	
 	private String rawResponse = null;
+	
+	private String responseCode = null;
 
-	protected <T extends MethodeResponse> MethodeResponse(Class<T> responseMethode) {
+	protected <T extends TelegramBotApiResponse> TelegramBotApiResponse(Class<T> responseMethode) {
 		
 	}
 	

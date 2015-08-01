@@ -81,11 +81,7 @@ public class PropertyLoader {
 				targetField.set(null, value);
 			}
 		
-		} catch (NoSuchFieldException | SecurityException e) {
-			throw new RuntimeException("de.markory.notibot.facade.config.PropertyLoader.setField(Class<?>, String, Class<?>) -"
-					+ "Can't set Field: "+name+".", e);
-		}
-		catch(IllegalArgumentException | IllegalAccessException e){
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
 			throw new RuntimeException("de.markory.notibot.facade.config.PropertyLoader.setField(Class<?>, String, Class<?>) -"
 					+ "Can't set Field: "+name+".", e);
 		}

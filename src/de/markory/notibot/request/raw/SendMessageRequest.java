@@ -1,10 +1,12 @@
-package de.markory.notibot.request;
+package de.markory.notibot.request.raw;
 
 import de.markory.notibot.api.RequestParam;
 import de.markory.notibot.api.TelegramMethode;
 import de.markory.notibot.response.SendMessageResponse;
 
 public class SendMessageRequest extends TelegramMethode<SendMessageRequest.MessageParam,SendMessageResponse> {
+	
+	private final static String name = "sendMessage";
 	
 	public enum MessageParam implements RequestParam{
 		
@@ -25,7 +27,6 @@ public class SendMessageRequest extends TelegramMethode<SendMessageRequest.Messa
 	}
 
 	public SendMessageRequest() { 
-		super(MessageParam.class,"sendMessage", new SendMessageResponse());
+		super(MessageParam.class, SendMessageRequest.name, new SendMessageResponse());
 	}
-	
 }

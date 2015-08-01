@@ -6,7 +6,7 @@ import java.net.URLEncoder;
 import java.util.EnumMap;
 
 
-public abstract class TelegramMethode<E extends Enum<E> & RequestParam, T extends MethodeResponse> {
+public abstract class TelegramMethode<E extends Enum<E> & RequestParam, T extends TelegramBotApiResponse> {
 	
 	private final TelegramBotApi telegramBotApi = TelegramBotApi.getInstance();
 	
@@ -60,6 +60,7 @@ public abstract class TelegramMethode<E extends Enum<E> & RequestParam, T extend
 	public void setParameter(E key, String value) {
 		parameters.put(key, value);
 	}
+	
 
 	public T sendRequest() throws IOException {
 		String response = telegramBotApi.sendRequest(this);
