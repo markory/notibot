@@ -46,4 +46,12 @@ public class SendMessage {
 		this.replyMarkup = markup;
 		return this;
 	}
+
+	@Override
+	public String toString() {
+		return "SendMessage [chatId=" + chatId + ", text=" + text + ", disableWebPagePreview=" + disableWebPagePreview
+				+ ", replyToMessageId=" + replyToMessageId + ", replyMarkup=" + replyMarkup + "]";
+	}
+	
+	
 }
