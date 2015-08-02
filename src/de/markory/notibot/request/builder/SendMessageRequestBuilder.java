@@ -4,11 +4,10 @@ import de.markory.notibot.request.raw.SendMessageRequest;
 import de.markory.notibot.request.raw.SendMessageRequest.MessageParam;
 import de.markory.notibot.request.types.SendMessage;
 
-public class SendMessageRequestBuilder {
+public class SendMessageRequestBuilder extends RequestBuilder<SendMessage,SendMessageRequest> {
 	
-	private SendMessageRequestBuilder() { }
-	
-	public static SendMessageRequest build(final SendMessage message) {
+	@Override
+	public SendMessageRequest build(final SendMessage message) {
 		
 		final SendMessageRequest request = new SendMessageRequest();
 		

@@ -1,8 +1,15 @@
 package de.markory.notibot.response.types;
 
-public class User {
+import javax.json.JsonObject;
+
+public class User extends Chat implements Type{
 	
-	private String id;
+	public User(JsonObject json) {
+		super(Chat.Type.user_chat);
+		parseJson(json);
+	}
+	
+	private int id;
 
 	private String firstName;
 	
@@ -10,7 +17,7 @@ public class User {
 	
 	private String userName;
 	
-	public String getId() { return id; }
+	public int getId() { return id; }
 
 	public String getFirstName() { return firstName; }
 
@@ -18,7 +25,7 @@ public class User {
 	
 	public String getUserName() { return userName; }
 	
-	public User setId(String id) {
+	public User setId(int id) {
 		this.id = id;
 		return this;
 	}
@@ -37,5 +44,21 @@ public class User {
 		this.userName = userName;
 		return this;
 	}
-	
+
+	@Override
+	public void parseJson(JsonObject json) {
+		
+		System.out.println(json);
+		
+		id = json.getInt("id");
+		firstName = json.getString("first_name","");
+		lastName = json.getString("last_name", "");
+		userName = json.getString("username","");
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName
+				+ "]";
+	}
 }

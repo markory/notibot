@@ -1,7 +1,9 @@
 package de.markory.notibot.api;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -44,14 +46,11 @@ public class TelegramBotApi {
 		return instance;
 	}
 	
-	String sendRequest( TelegramMethode<?,?> methode) throws IOException {
+	InputStream sendRequest( TelegramMethode<?,?> methode) throws IOException {
 		
 		final URL url = new URL(protocol,domain_api, "/"+prop_bot_token+methode.getEndpoint());
 		
 		OutputStreamWriter writer = null;
-		BufferedReader reader = null;
-		
-		String response = "";
 		
 		String parameters = methode.getParameters();
 		
@@ -77,14 +76,11 @@ public class TelegramBotApi {
 			writer.write( parameters );
 			writer.flush();
 			
-			reader = new BufferedReader(new InputStreamReader(con.getInputStream()) );
-			
-			for ( String line; (line = reader.readLine()) != null; )
-			{
-			  response += line;
+			try {
+				return con.getInputStream();
+			} catch ( IOException e ) {
+				return con.getErrorStream();
 			}
-			
-			
 			
 		} catch (MalformedURLException e) {
 			
@@ -92,10 +88,9 @@ public class TelegramBotApi {
 		} 
 		finally{
 			if ( writer != null ) { writer.close(); }
-			if ( reader != null ) { reader.close(); }
 		}
 			
-		return response;
+		return null;
 	}
 	
 	
