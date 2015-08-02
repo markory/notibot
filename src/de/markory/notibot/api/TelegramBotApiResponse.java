@@ -57,11 +57,11 @@ public abstract class TelegramBotApiResponse<J extends JsonStructure> {
 		else {
 			
 			if ( resultType == JsonArray.class ) {
-				return parseToObject((J) responseJsonObject.getJsonArray(jsonObjKey));
+				return processResponse((J) responseJsonObject.getJsonArray(jsonObjKey));
 			}
 			
 			if ( resultType == JsonObject.class ) {
-				return parseToObject((J)responseJsonObject.getJsonObject(jsonObjKey));
+				return processResponse((J)responseJsonObject.getJsonObject(jsonObjKey));
 			}
 		}
 		
@@ -70,6 +70,6 @@ public abstract class TelegramBotApiResponse<J extends JsonStructure> {
 		return null;
 	}
 
-	protected abstract <T extends TelegramBotApiResponse> T parseToObject(J json);
+	protected abstract <T extends TelegramBotApiResponse> T processResponse(J json);
 	
 }

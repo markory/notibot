@@ -17,6 +17,7 @@ public class User extends Chat implements Type{
 	
 	private String userName;
 	
+	@Override
 	public int getId() { return id; }
 
 	public String getFirstName() { return firstName; }
@@ -47,8 +48,6 @@ public class User extends Chat implements Type{
 
 	@Override
 	public void parseJson(JsonObject json) {
-		
-		System.out.println(json);
 		
 		id = json.getInt("id");
 		firstName = json.getString("first_name","");

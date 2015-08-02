@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.json.JsonObject;
 
+import de.markory.notibot.util.DateConverter;
+
 public class Message implements Type {
 	
 	public Message(JsonObject json) {
@@ -62,12 +64,11 @@ public class Message implements Type {
 	@Override
 	public void parseJson(JsonObject json) {
 		
-		System.out.println(json);
 		messageId = json.getInt("message_id");
 		
 		from = new User(json.getJsonObject("from"));
-		date = new Date(json.getInt("date"));
-		
+		date = DateConverter.convertUnixTimeStamp(json.getInt("date"));
+				
 		//only title exist in group_chat
 		JsonObject chatJsonObject =  json.getJsonObject("chat");
 		if ( chatJsonObject.containsKey("title") ) {

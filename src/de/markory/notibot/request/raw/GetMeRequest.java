@@ -2,17 +2,15 @@ package de.markory.notibot.request.raw;
 
 import de.markory.notibot.api.RequestParam;
 import de.markory.notibot.api.TelegramMethode;
-import de.markory.notibot.response.GetUpdatesResponse;
+import de.markory.notibot.response.GetMeResponse;
 
-public class GetUpdatesRequest extends TelegramMethode<GetUpdatesRequest.MessageParam,GetUpdatesResponse> {
-
-	private final static String name = "getUpdates";
+public class GetMeRequest extends TelegramMethode<GetMeRequest.MessageParam, GetMeResponse> {
+	
+	private final static String name = "getMe";
 	
 	public enum MessageParam implements RequestParam{
 		
-		offset("offset"),
-		limit("limit"),
-		timeout("timeout");
+		nothing("");
 		
 		private final String parameterName;
 		
@@ -24,7 +22,7 @@ public class GetUpdatesRequest extends TelegramMethode<GetUpdatesRequest.Message
 		public String getParameterName() { return parameterName; }
 	}
 
-	public GetUpdatesRequest() { 
-		super(MessageParam.class, GetUpdatesRequest.name, new GetUpdatesResponse());
+	public GetMeRequest() {
+		super(MessageParam.class, GetMeRequest.name, new GetMeResponse());
 	}
 }

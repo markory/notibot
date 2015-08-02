@@ -1,6 +1,6 @@
 package de.markory.notibot.response.types;
 
-public class Chat {
+public abstract class Chat {
 	
 	public enum Type {
 		group_chat,
@@ -14,4 +14,6 @@ public class Chat {
 	}
 	
 	public Type getChatType() { return chatType; }
+	
+	public abstract int getId();
 }

@@ -4,7 +4,7 @@ public class GetUpdates {
 
 	private Integer offset;
 	
-	private Integer limit = 1;
+	private Integer limit = 100;
 	
 	private Integer timeout = 60;
 	
@@ -14,11 +14,13 @@ public class GetUpdates {
 	
 	public Integer getLimit() {	return limit; }
 	
+	
 	public GetUpdates setOffset(Integer offset) {
 		this.offset = offset;
 		return this;
 	}
 
+	
 	public GetUpdates setLimit(Integer limit) {
 		
 		if ( limit > 100 ) {
@@ -29,6 +31,7 @@ public class GetUpdates {
 		return this;
 	}
 
+	
 	public GetUpdates setTimeout(Integer timeout) {
 		this.timeout = timeout;
 		return this;

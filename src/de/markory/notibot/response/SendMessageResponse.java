@@ -16,7 +16,7 @@ public class SendMessageResponse extends TelegramBotApiResponse<JsonObject> {
 	public Message getMessage() { return message; }
 
 	@Override
-	protected SendMessageResponse parseToObject(JsonObject json) {
+	protected SendMessageResponse processResponse(JsonObject json) {
 
 		message = new Message(json);
 		

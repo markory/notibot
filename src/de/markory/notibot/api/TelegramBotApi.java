@@ -54,8 +54,6 @@ public class TelegramBotApi {
 		
 		String parameters = methode.getParameters();
 		
-		System.out.println("Paremeters: "+parameters);
-		
 		try {
 			
 			HttpURLConnection con;

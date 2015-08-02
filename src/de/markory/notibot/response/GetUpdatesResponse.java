@@ -16,15 +16,23 @@ public class GetUpdatesResponse extends TelegramBotApiResponse<JsonArray> {
 		super(GetUpdatesResponse.class,JsonArray.class);
 	}
 
-	private List<Update> update = new ArrayList<>();
+	private Integer highesUpdateId;
+	
+	private List<Update> updates = new ArrayList<>();
 
-	public List<Update> getUpdate() {	return Collections.unmodifiableList(update); }
+	public List<Update> getUpdates() {	return Collections.unmodifiableList(updates); }
 
 	@Override
-	protected GetUpdatesResponse parseToObject(JsonArray resultJsonArray) {
+	protected GetUpdatesResponse processResponse(JsonArray resultJsonArray) {
 		
 		for(JsonObject updateObj: resultJsonArray.getValuesAs(JsonObject.class)) {
-			update.add(new Update(updateObj));
+			
+			Update update = new Update(updateObj);
+			updates.add(update);
+			
+			if ( highesUpdateId == null ) { highesUpdateId = update.getUpdateId(); }
+			
+			if ( update.getUpdateId() > highesUpdateId  ) { highesUpdateId = update.getUpdateId(); }
 		}
 		
 		return this;
@@ -33,6 +41,6 @@ public class GetUpdatesResponse extends TelegramBotApiResponse<JsonArray> {
 	@Override
 	public String toString() {
 		return "GetUpdatesResponse [status=" + status + ", errorCode=" + errorCode
-				+ ", errorDescription=" + errorDescription + ", update=" + update + "]";
+				+ ", errorDescription=" + errorDescription + ", highesUpdateId="+highesUpdateId+", updates=" + updates + "]";
 	}
 }

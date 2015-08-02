@@ -13,6 +13,7 @@ public class GroupeChat extends Chat implements Type {
 	
 	private String title;
 	
+	@Override
 	public int getId() { return id; }
 
 	public String getTitle() { return title; }
