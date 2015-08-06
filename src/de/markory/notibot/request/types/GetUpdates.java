@@ -24,7 +24,7 @@ public class GetUpdates {
 	public GetUpdates setLimit(Integer limit) {
 		
 		if ( limit > 100 ) {
-			throw new RuntimeException("setLimit(Integer) - limit of 100 not accepted.");
+			throw new IllegalArgumentException("setLimit(Integer) - limit of 100 not accepted.");
 		}
 		
 		this.limit = limit;
