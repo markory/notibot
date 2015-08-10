@@ -4,5 +4,5 @@ import javax.json.JsonObject;
 
 public interface Type {
 
-	public void parseJson(JsonObject json); 	
+	public void parseJson(JsonObject json);
 }

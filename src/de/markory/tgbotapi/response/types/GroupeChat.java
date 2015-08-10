@@ -3,27 +3,27 @@ package de.markory.tgbotapi.response.types;
 import javax.json.JsonObject;
 
 public class GroupeChat extends Chat implements Type {
-	
+
 	public GroupeChat(JsonObject json) {
 		super(Chat.Type.group_chat);
 		parseJson(json);
 	}
-	
+
 	private int id;
-	
+
 	private String title;
-	
+
 	@Override
 	public int getId() { return id; }
 
 	public String getTitle() { return title; }
 
-	public GroupeChat setTitle(String title) {
+	GroupeChat setTitle(String title) {
 		this.title = title;
 		return this;
 	}
 
-	public GroupeChat setId(int id) {
+	GroupeChat setId(int id) {
 		this.id = id;
 		return this;
 	}
