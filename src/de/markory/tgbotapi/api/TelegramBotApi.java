@@ -97,13 +97,11 @@ public class TelegramBotApi {
 
 		} catch (MalformedURLException e) {
 
-			e.printStackTrace();
+			throw new RuntimeException("TelegramBotApi.sendRequest() - MalformedURLException =",e);
 		}
 		finally{
 			if ( writer != null ) { writer.close(); }
 		}
-
-		return null;
 	}
 
 
